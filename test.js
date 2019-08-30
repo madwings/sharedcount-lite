@@ -10,11 +10,11 @@ chai.should();
 const { expect } = chai;
 
 const baseUrl = 'https://api.sharedcount.com';
-const apikey = 'TEST_API_KEY';
+const apiKey = 'TEST_API_KEY';
 const expectedResult = { result: 'ok' };
 
 describe('Sharedcount unit tests', () => {
-  const sc = new Sharedcount({ apikey });
+  const sc = new Sharedcount({ apiKey });
 
   afterEach(() => {
     nock.cleanAll();
@@ -23,8 +23,8 @@ describe('Sharedcount unit tests', () => {
   it('url', async () => {
     const url = 'http://domain.com';
     nock(baseUrl)
-      .get('/v1.0')
-      .query({ apikey, url })
+      .get('/v1.0/')
+      .query({ apiKey, url })
       .reply(200, expectedResult);
     const result = await sc.url(url);
     expect(result).to.be.deep.equal(expectedResult);
@@ -33,8 +33,8 @@ describe('Sharedcount unit tests', () => {
   it('url (without http prefix)', async () => {
     const domain = 'domain.com';
     nock(baseUrl)
-      .get('/v1.0')
-      .query({ apikey, url: `http://${domain}` })
+      .get('/v1.0/')
+      .query({ apiKey, url: `http://${domain}` })
       .reply(200, expectedResult);
     const result = await sc.url(domain);
     expect(result).to.be.deep.equal(expectedResult);
@@ -43,7 +43,7 @@ describe('Sharedcount unit tests', () => {
   it('domain whitelist', async () => {
     nock(baseUrl)
       .get('/v1.0/domain_whitelist')
-      .query({ apikey })
+      .query({ apiKey })
       .reply(200, expectedResult);
 
     const result = await sc.domainWhitelist();
@@ -53,7 +53,7 @@ describe('Sharedcount unit tests', () => {
   it('usage', async () => {
     nock(baseUrl)
       .get('/v1.0/usage')
-      .query({ apikey })
+      .query({ apiKey })
       .reply(200, expectedResult);
 
     const result = await sc.usage();
@@ -63,7 +63,7 @@ describe('Sharedcount unit tests', () => {
   it('quota', async () => {
     nock(baseUrl)
       .get('/v1.0/quota')
-      .query({ apikey })
+      .query({ apiKey })
       .reply(200, expectedResult);
 
     const result = await sc.quota();
@@ -73,7 +73,7 @@ describe('Sharedcount unit tests', () => {
   it('status', async () => {
     nock(baseUrl)
       .get('/v1.0/status')
-      .query({ apikey })
+      .query({ apiKey })
       .reply(200, expectedResult);
 
     const result = await sc.status();
