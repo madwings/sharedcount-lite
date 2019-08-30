@@ -26,19 +26,19 @@ Sharedcount.prototype.url = function urlInfo(url) {
 };
 
 Sharedcount.prototype.domainWhitelist = function status() {
-  return this.makeRequest({ path: '/domain_whitelist' });
+  return this.makeRequest({ path: 'domain_whitelist' });
 };
 
 Sharedcount.prototype.usage = function usage() {
-  return this.makeRequest({ path: '/usage' });
+  return this.makeRequest({ path: 'usage' });
 };
 
 Sharedcount.prototype.quota = function usage() {
-  return this.makeRequest({ path: '/quota' });
+  return this.makeRequest({ path: 'quota' });
 };
 
 Sharedcount.prototype.status = function status() {
-  return this.makeRequest({ path: '/status' });
+  return this.makeRequest({ path: 'status' });
 };
 
 module.exports = Sharedcount;
