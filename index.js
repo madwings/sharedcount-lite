@@ -1,23 +1,30 @@
-const request = require('request-promise-native');
+const request = require('./axios_utils');
 
 const baseUrl = 'https://api.sharedcount.com/v1.0/';
 
 const addHttpToUrl = url => (url.includes('http') ? url : `http://${url}`);
 
-const makeRequest = (apiKey, baseUrl) => ({
-  path = '', queryParams = {}, body, method = 'GET',
-}) => request({
-  url: `${baseUrl}${path}`,
-  method,
-  json: true,
-  qs: { apiKey, ...queryParams },
-  body,
-});
+const makeRequest = (apiKey, baseUrl, config) => ({
+  path = '', queryParams = {}, data = {}, method = 'GET',
+}) => {
+  let options = {
+    url: `${baseUrl}${path}`,
+    method,
+    responseType: 'json',
+    params: { apiKey, ...queryParams },
+    data,
+  };
+  options = Object.assign(options, config);
+
+  return request(options);
+};
 
 const Sharedcount = function Sharedcount(options = {}) {
   this.apiKey = options.apiKey || process.env.SHAREDCOUNT_API_KEY;
   this.baseUrl = options.baseUrl || process.env.SHAREDCOUNT_BASE_URL || baseUrl;
-  this.makeRequest = makeRequest(this.apiKey, this.baseUrl);
+  this.config = options.config || {};
+  this.makeRequest = makeRequest(this.apiKey, this.baseUrl, this.config);
+
   return this;
 };
 

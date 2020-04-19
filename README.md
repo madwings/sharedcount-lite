@@ -13,7 +13,7 @@ This software is released under the MIT license. See `LICENSE` for more details
 
 From the command line
 
-	$ yarn install sharedcount
+	$ yarn add sharedcount
 
 or
 

@@ -1,7 +1,7 @@
 {
     "name": "sharedcount",
     "description": "Sharedcount module for nodejs",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "keywords": [
         "sharedcount",
         "api"
@@ -22,23 +22,20 @@
         "node": ">=8.10"
     },
     "dependencies": {
-        "request": "^2.88.0",
-        "request-promise-native": "^1.0.7"
+        "axios": "^0.19.2"
     },
     "devDependencies": {
-        "chai": "^4.2.0",
-        "chai-as-promised": "^7.1.1",
-        "eslint": "^5.16.0",
-        "eslint-config-airbnb-base": "^13.2.0",
-        "eslint-plugin-import": "^2.18.2",
-        "mocha": "^6.2.0",
-        "moment": "^2.24.0",
-        "nock": "^10.0.6",
-        "prettier": "1.18.2",
-        "should": "*"
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-plugin-import": "^2.20.2",
+        "jest": "^25.3.0",
+        "nock": "^12.0.3"
     },
     "main": "./index.js",
     "scripts": {
-        "test": "mocha test.js"
+        "test": "jest"
+    },
+    "jest": {
+        "testEnvironment": "node"
     }
 }

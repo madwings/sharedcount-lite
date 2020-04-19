@@ -1,13 +1,7 @@
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const moment = require('moment');
 const nock = require('nock');
 const Sharedcount = require('./index');
 
 nock.disableNetConnect();
-chai.use(chaiAsPromised);
-chai.should();
-const { expect } = chai;
 
 const baseUrl = 'https://api.sharedcount.com';
 const apiKey = 'TEST_API_KEY';
@@ -27,7 +21,7 @@ describe('Sharedcount unit tests', () => {
       .query({ apiKey, url })
       .reply(200, expectedResult);
     const result = await sc.url(url);
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 
   it('url (without http prefix)', async () => {
@@ -37,7 +31,7 @@ describe('Sharedcount unit tests', () => {
       .query({ apiKey, url: `http://${domain}` })
       .reply(200, expectedResult);
     const result = await sc.url(domain);
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 
   it('domain whitelist', async () => {
@@ -47,7 +41,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.domainWhitelist();
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 
   it('usage', async () => {
@@ -57,7 +51,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.usage();
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 
   it('quota', async () => {
@@ -67,7 +61,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.quota();
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 
   it('status', async () => {
@@ -77,6 +71,6 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.status();
-    expect(result).to.be.deep.equal(expectedResult);
+    expect(result.data).toEqual(expectedResult);
   });
 });
