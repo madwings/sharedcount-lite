@@ -16,7 +16,7 @@ const makeRequest = (apiKey, baseUrl, config) => ({
   };
   options = Object.assign(options, config);
 
-  return request(options);
+  return request(options).then((response) => response.data);
 };
 
 const Sharedcount = function Sharedcount(options = {}) {
