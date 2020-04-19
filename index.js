@@ -5,7 +5,7 @@ const baseUrl = 'https://api.sharedcount.com/v1.0/';
 const addHttpToUrl = url => (url.includes('http') ? url : `http://${url}`);
 
 const makeRequest = (apiKey, baseUrl, config) => ({
-  path = '', queryParams = {}, data = {}, method = 'GET',
+  path = '', queryParams = {}, data, method = 'GET',
 }) => {
   let options = {
     url: `${baseUrl}${path}`,
