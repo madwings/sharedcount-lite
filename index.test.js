@@ -21,7 +21,7 @@ describe('Sharedcount unit tests', () => {
       .query({ apiKey, url })
       .reply(200, expectedResult);
     const result = await sc.url(url);
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 
   it('url (without http prefix)', async () => {
@@ -31,7 +31,7 @@ describe('Sharedcount unit tests', () => {
       .query({ apiKey, url: `http://${domain}` })
       .reply(200, expectedResult);
     const result = await sc.url(domain);
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 
   it('domain whitelist', async () => {
@@ -41,7 +41,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.domainWhitelist();
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 
   it('usage', async () => {
@@ -51,7 +51,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.usage();
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 
   it('quota', async () => {
@@ -61,7 +61,7 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.quota();
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 
   it('status', async () => {
@@ -71,6 +71,6 @@ describe('Sharedcount unit tests', () => {
       .reply(200, expectedResult);
 
     const result = await sc.status();
-    expect(result.data).toEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 });
