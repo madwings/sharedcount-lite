@@ -2,6 +2,6 @@ language: node_js
 dist: bionic
 
 node_js:
-    - 8.10
+    - 8.12
     - 10.0
     - 12.0
