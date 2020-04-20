@@ -1,9 +1,9 @@
-# SharedCount
+# SharedCount Lite
 
 [![Build Status via Travis CI](https://travis-ci.org/madwings/sharedcount-lite.svg?branch=master)](https://travis-ci.org/madwings/sharedcount-lite)
 [![NPM version](https://img.shields.io/npm/v/sharedcount-lite.svg)](https://www.npmjs.org/package/sharedcount-lite)
 
-[SharedCount](https://sharedcount.com) module for [nodejs](https://nodejs.org)
+[SharedCount](https://sharedcount.com) API module for [nodejs](https://nodejs.org)
 
 SharedCount API documentation: [https://www.sharedcount.com/api-docs/getting-started](https://www.sharedcount.com/api-docs/getting-started)
 
@@ -27,7 +27,7 @@ var SharedCount = require('sharedcount');
 
 var sc = new SharedCount({ apikey: 'YOUR_API_KEY' });
 
-const result = await sc.url('www.yahoo.com')}
+const result = await sc.url('www.yahoo.com');
 ```
 
 ## Documentation
@@ -36,7 +36,11 @@ Initialize SharedCount object:
 ```javascript
 var SharedCount = require('sharedcount');
 var sc = new SharedCount({
-	apiKey: 'YOUR_API_KEY' || process.env.SharedcountApiKey,
+	apiKey: 'YOUR_API_KEY' || process.env.SHAREDCOUNT_API_KEY,
+	baseUrl: 'YOUR_BASE_URL' || process.env.SHAREDCOUNT_BASE_URL, // optional
+	config: {
+		timeout: 30000 // add timeout of 30s, default is 101
+	}, // optional, you can pass any parameter that axios http library supports
 });
 ```
 
@@ -44,13 +48,13 @@ var sc = new SharedCount({
 Resolve with share counts for a URL.
 
 ```javascript
-sc.url('sharedcount.com')
+sc.url('sharedcount.com');
 ```
 
 ### quota()
 Resolve with information about your quota allocation for the day.
 
- ```javascript
+```javascript
 sc.quota();
 ```
 
