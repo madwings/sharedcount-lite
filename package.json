@@ -1,5 +1,5 @@
 {
-    "name": "sharedcount",
+    "name": "sharedcount-lite",
     "description": "Sharedcount module for nodejs",
     "version": "2.0.0",
     "keywords": [
@@ -7,16 +7,16 @@
         "api"
     ],
     "bugs": {
-        "url": "https://github.com/DigitalRockers/sharedcount/issues"
+        "url": "https://github.com/madwings/sharedcount-lite/issues"
     },
     "license": "MIT",
     "author": {
-        "name": "Gianluca Pengo",
-        "url": "https://github.com/gian788/"
+        "name": "Stiliyan Ivanov",
+        "url": "https://github.com/madwings/"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/DigitalRockers/sharedcount"
+        "url": "https://github.com/madwings/sharedcount-lite"
     },
     "engines": {
         "node": ">=8.10"

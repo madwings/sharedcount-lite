@@ -1,7 +1,7 @@
 # SharedCount
 
-[![Build Status via Travis CI](https://travis-ci.org/DigitalRockers/sharedcount.svg?branch=master)](https://travis-ci.org/DigitalRockers/sharedcount)
-[![NPM version](http://img.shields.io/npm/v/sharedcount.svg)](https://www.npmjs.org/package/sharedcount)
+[![Build Status via Travis CI](https://travis-ci.org/madwings/sharedcount-lite.svg?branch=master)](https://travis-ci.org/madwings/sharedcount-lite)
+[![NPM version](http://img.shields.io/npm/v/sharedcount-lite.svg)](https://www.npmjs.org/package/sharedcount-lite)
 
 [SharedCount](https://sharedcount.com) module for [nodejs](https://nodejs.org)
 
