@@ -1,7 +1,7 @@
 {
     "name": "sharedcount-lite",
     "description": "Sharedcount module for nodejs",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "keywords": [
         "sharedcount",
         "api"
