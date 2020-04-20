@@ -19,7 +19,7 @@
         "url": "https://github.com/madwings/sharedcount-lite"
     },
     "engines": {
-        "node": ">=8.10"
+        "node": ">=10.13"
     },
     "dependencies": {
         "axios": "^0.19.2"
