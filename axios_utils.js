@@ -5,7 +5,7 @@ const instance = axios.create();
 instance.interceptors.request.use((settings) => {
 // Do something before request is sent
   if (!settings.timeout) {
-    settings.timeout = 30000; // Set default timeout of 30 seconds
+    settings.timeout = 100000; // Set default timeout of 100 seconds, Cloudflare default
   }
 
   return settings;
