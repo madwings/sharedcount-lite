@@ -13,11 +13,11 @@ This software is released under the MIT license. See `LICENSE` for more details
 
 From the command line
 
-	$ yarn add sharedcount
+    $ yarn add sharedcount-lite
 
 or
 
-	$ npm install sharedcount
+    $ npm install sharedcount-lite
 
 
 ## Example use
@@ -36,11 +36,11 @@ Initialize SharedCount object:
 ```javascript
 var SharedCount = require('sharedcount');
 var sc = new SharedCount({
-	apiKey: 'YOUR_API_KEY' || process.env.SHAREDCOUNT_API_KEY,
-	baseUrl: 'YOUR_BASE_URL' || process.env.SHAREDCOUNT_BASE_URL, // optional
-	config: {
-		timeout: 30000 // add timeout of 30s, default is 101
-	}, // optional, you can pass any parameter that axios http library supports
+    apiKey: 'YOUR_API_KEY' || process.env.SHAREDCOUNT_API_KEY,
+    baseUrl: 'YOUR_BASE_URL' || process.env.SHAREDCOUNT_BASE_URL, // optional
+    config: {
+        timeout: 30000 // add timeout of 30s, default is 101
+    }, // optional, you can pass any parameter that axios http library supports
 });
 ```
 
