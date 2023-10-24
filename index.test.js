@@ -3,7 +3,7 @@ const Sharedcount = require('./index');
 
 nock.disableNetConnect();
 
-const baseUrl = 'https://api.sharedcount.com';
+const baseUrl = 'https://api.sharedcount.com/v1.1';
 const apiKey = 'TEST_API_KEY';
 const expectedResult = { result: 'ok' };
 
@@ -17,7 +17,7 @@ describe('Sharedcount unit tests', () => {
   it('url', async () => {
     const url = 'http://domain.com';
     nock(baseUrl)
-      .get('/v1.0/')
+      .get('/')
       .query({ apiKey, url })
       .reply(200, expectedResult);
     const result = await sc.url(url);
@@ -27,7 +27,7 @@ describe('Sharedcount unit tests', () => {
   it('url (without http prefix)', async () => {
     const domain = 'domain.com';
     nock(baseUrl)
-      .get('/v1.0/')
+      .get('/')
       .query({ apiKey, url: `http://${domain}` })
       .reply(200, expectedResult);
     const result = await sc.url(domain);
@@ -36,7 +36,7 @@ describe('Sharedcount unit tests', () => {
 
   it('domain whitelist', async () => {
     nock(baseUrl)
-      .get('/v1.0/domain_whitelist')
+      .get('/domain_whitelist')
       .query({ apiKey })
       .reply(200, expectedResult);
 
@@ -46,7 +46,7 @@ describe('Sharedcount unit tests', () => {
 
   it('usage', async () => {
     nock(baseUrl)
-      .get('/v1.0/usage')
+      .get('/usage')
       .query({ apiKey })
       .reply(200, expectedResult);
 
@@ -56,7 +56,7 @@ describe('Sharedcount unit tests', () => {
 
   it('quota', async () => {
     nock(baseUrl)
-      .get('/v1.0/quota')
+      .get('/quota')
       .query({ apiKey })
       .reply(200, expectedResult);
 
@@ -66,7 +66,7 @@ describe('Sharedcount unit tests', () => {
 
   it('status', async () => {
     nock(baseUrl)
-      .get('/v1.0/status')
+      .get('/status')
       .query({ apiKey })
       .reply(200, expectedResult);
 

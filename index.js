@@ -1,6 +1,6 @@
 const request = require('./axios_utils');
 
-const baseUrl = 'https://api.sharedcount.com/v1.0/';
+const baseUrl = 'https://api.sharedcount.com/v1.1/';
 
 const addHttpToUrl = url => (url.includes('http') ? url : `http://${url}`);
 
