@@ -1,80 +1,127 @@
 # SharedCount Lite
 
-[![Build Status via Travis CI](https://travis-ci.org/madwings/sharedcount-lite.svg?branch=master)](https://travis-ci.org/madwings/sharedcount-lite)
+[![CI](https://github.com/madwings/sharedcount-lite/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/madwings/sharedcount-lite/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/sharedcount-lite.svg)](https://www.npmjs.org/package/sharedcount-lite)
 
-[SharedCount](https://sharedcount.com) API module for [nodejs](https://nodejs.org)
+A lightweight [SharedCount](https://sharedcount.com) API wrapper for Node.js 20 or newer.
+See the [SharedCount API documentation](https://www.sharedcount.com/api-docs/getting-started)
+and the MIT license in `LICENSE`.
 
-SharedCount API documentation: [https://www.sharedcount.com/api-docs/getting-started](https://www.sharedcount.com/api-docs/getting-started)
+## Installation
 
-This software is released under the MIT license. See `LICENSE` for more details
-
-## Download and Installation
-
-From the command line
-
-    $ yarn add sharedcount-lite
-
-or
-
-    $ npm install sharedcount-lite
-
-
-## Example use
-
-```javascript
-var SharedCount = require('sharedcount');
-
-var sc = new SharedCount({ apikey: 'YOUR_API_KEY' });
-
-const result = await sc.url('www.yahoo.com');
+```shell
+npm install sharedcount-lite
 ```
 
-## Documentation
+Or use `yarn add sharedcount-lite`.
 
-Initialize SharedCount object:
+## Example
+
+Set `SHAREDCOUNT_API_KEY` in your server-side environment, then run:
+
 ```javascript
-var SharedCount = require('sharedcount');
-var sc = new SharedCount({
-    apiKey: 'YOUR_API_KEY' || process.env.SHAREDCOUNT_API_KEY,
-    baseUrl: 'YOUR_BASE_URL' || process.env.SHAREDCOUNT_BASE_URL, // optional
-    config: {
-        timeout: 30000 // add timeout of 30s, default is 101
-    }, // optional, you can pass any parameter that axios http library supports
+const SharedCount = require('sharedcount-lite');
+const sc = new SharedCount();
+
+sc.url('https://www.example.com/')
+  .then((result) => console.log(result))
+  .catch((error) => {
+    const reason = error.response?.data?.Type ?? error.code ?? 'unknown error';
+    console.error('SharedCount request failed:', reason);
+    process.exitCode = 1;
+  });
+```
+
+## Configuration
+
+```javascript
+const SharedCount = require('sharedcount-lite');
+const sc = new SharedCount({
+  apiKey: process.env.SHAREDCOUNT_API_KEY,
+  baseUrl: 'https://api.sharedcount.com/v1.1/',
+  config: { timeout: 30000 },
 });
 ```
 
+All options are optional. `apiKey` defaults to `SHAREDCOUNT_API_KEY`, and
+`baseUrl` defaults to `SHAREDCOUNT_BASE_URL` or the official API URL. A custom
+base URL must end in `/`. `config` accepts Axios request options and can
+override request defaults, including query parameters; the default timeout is
+101 seconds. Keep API keys private and out of logs, including Axios request
+configurations, which can contain the key.
+
+The methods return the API response body without changing its fields. A failed
+request rejects with an Axios error; when the API returns an error response,
+its JSON body is available as `error.response.data`.
+
 ### url(url)
-Resolve with share counts for a URL.
+
+Return share counts for a non-empty URL string. An `http://` scheme is added if
+none is present, and query parameters are encoded automatically. Invalid
+arguments throw a `TypeError`. SharedCount may return `null` when a network
+does not report a count, and responses may be cached for up to one hour.
 
 ```javascript
-sc.url('sharedcount.com');
+const counts = await sc.url('sharedcount.com');
+```
+
+### bulkPost(urls)
+
+Queue a non-empty array of non-empty URL strings and return the API's `count`
+and `bulk_id`. URLs are encoded automatically; do not percent-encode the entire
+URL before passing it. Percent-encoded characters within a URL are preserved.
+This endpoint requires a paid plan and each completed URL counts against the
+daily quota. SharedCount may ignore invalid URLs, so compare `count` with the
+number submitted. Invalid arguments throw a `TypeError`.
+
+```javascript
+const { bulk_id: bulkId } = await sc.bulkPost([
+  'https://example.com/',
+  'https://example.org/?category=technology&sort=newest',
+]);
+```
+
+### bulkGet(bulkId, options)
+
+Retrieve a bulk job's results. Pass `{ force: true }` to request partial
+results before completion. Check `_meta.completed` and, if polling, follow
+SharedCount's recommendation to wait 30-60 seconds between requests; the
+wrapper does not poll automatically. `bulkId` must be a non-empty string, and
+`force` must be a boolean; invalid arguments throw a `TypeError`.
+
+```javascript
+const result = await sc.bulkGet(bulkId, { force: true });
 ```
 
 ### quota()
-Resolve with information about your quota allocation for the day.
+
+Return information about the day's quota allocation.
 
 ```javascript
-sc.quota();
+const quota = await sc.quota();
 ```
 
 ### usage()
-Resolve with historical quota usage information.
+
+Return historical quota usage information.
 
 ```javascript
-sc.usage();
+const usage = await sc.usage();
 ```
 
-### domain_whitelist()
-Resolve with a list of domains added to your domain whitelist, and whether the domain whitelist is currently being enforced.
+### domainWhitelist()
+
+Return the domain whitelist and whether it is currently enforced.
 
 ```javascript
-sc.domainWhitelist();
+const whitelist = await sc.domainWhitelist();
 ```
 
 ### status()
-Check to see if the SharedCount API is currently up.
+
+Check whether the SharedCount API is up. This public endpoint does not require
+an API key, and the wrapper does not add one automatically.
 
 ```javascript
-sc.status();
+const status = await sc.status();
 ```
