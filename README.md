@@ -125,3 +125,24 @@ an API key, and the wrapper does not add one automatically.
 ```javascript
 const status = await sc.status();
 ```
+
+## Publishing
+
+For local publishing, configure an npm access token in the project's `.npmrc`,
+which is ignored by Git. For example, set `NPM_TOKEN` in your environment and
+add the following line to `.npmrc`:
+
+```ini
+//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+```
+
+A project-level token overrides a user-level npm token. Run `npm whoami` to
+check the effective account. For direct publishing, a granular token needs
+**Read and write (publish and stage)** access to this package. Publishing also
+requires two-factor authentication or, where package settings allow it, a
+token created with **Bypass 2FA**. See npm's [access token
+documentation](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+
+Keep tokens out of source control and logs. For automated releases, prefer
+npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) over a
+long-lived token. The CI workflow only runs tests; it does not publish packages.
